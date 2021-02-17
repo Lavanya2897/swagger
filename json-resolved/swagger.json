@@ -1,0 +1,185 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Employee List API",
+    "description" : "This is a simple API",
+    "contact" : {
+      "email" : "lavanyas@nousinfo.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/nousinfosystems/Employee/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "Employee",
+    "description" : "List of Employe"
+  } ],
+  "paths" : {
+    "/employee" : {
+      "get" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Lists Employee",
+        "description" : "By passing in the appropriate options, you can search for\nlist of employee in the system\n",
+        "operationId" : "listEmployee",
+        "parameters" : [ {
+          "name" : "listString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up Employee",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 50,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lists no of employee",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Update an existing Employee",
+        "operationId" : "updateEmployee",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "Employee not found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Employee" ],
+        "summary" : "adds an employee item",
+        "description" : "Lists Employee",
+        "operationId" : "addEmployee",
+        "requestBody" : {
+          "description" : "Employee list",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Lists Employee"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "Cannot list employee"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Delete Employee",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteEmployee",
+        "parameters" : [ {
+          "name" : "Allison",
+          "in" : "query",
+          "description" : "The name that needs to be deleted",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid username supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Employee" : {
+        "required" : [ "age", "id", "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Allison"
+          },
+          "age" : {
+            "type" : "integer",
+            "example" : 50
+          }
+        }
+      }
+    }
+  },
+  "x-azure-api-id" : "sh-57b8d008-2961-46a0-a6d8-cdc41c5354fd"
+}
